@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 declare const puter: any
 
@@ -63,7 +65,23 @@ function ChatTool() {
                   : 'bg-gray-100 text-gray-800 rounded-bl-sm'
                 }`}
             >
-              {m.text}
+              {m.role === 'ai' ? (
+
+                <div className="prose prose-sm max-w-none">
+
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {m.text}
+                  </ReactMarkdown>
+
+                </div>
+
+              ) : (
+
+                m.text
+
+              )}
             </div>
           </div>
         ))}
